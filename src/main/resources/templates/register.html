@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Employee Storage Service Example</title>
+    <script type="text/javascript">
+        //<![CDATA[
+        function validateEmail(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+        function validateForm() {
+            var email = document.getElementById("email").value;
+            var userName = document.getElementById("userName").value;
+            var errorMessageElement = document.getElementById("errorMessage");
+            var password = document.getElementById("password").value;
+            var passwordAgain = document.getElementById("passwordAgain").value;
+            var dataOfBirth = document.getElementById("dataOfBirth").value;
+            var error = "";
+            error += !userName ? "The 'userName' field should be filled.<br>" : "";
+            error += !password? "The 'password' field should be filled.<br>": "";
+            error += !passwordAgain ? "The 'password again' field should be filled.<br>": "";
+            error +=  password !== passwordAgain? "Your 'password' and 'confirmation password' do not match.<br>": "";
+            error += !validateEmail(email) ? "Email isn't correct.<br>": "";
+            error += !dataOfBirth ? "The 'data Of Birth' field should be filled.<br>": "";
+
+            if(error) {
+                errorMessageElement.innerHTML = error + " Please change and try again";
+                return false;
+            } else {
+                return true;
+            }
+        }
+        //]]>
+    </script>
+</head>
+<body>
+<h3>Employee Storage Service</h3>
+<form th:action="@{/register}" th:object="${adminEntity}" method="post" onsubmit="return validateForm()">
+    <table>
+        <tr>
+            <td>
+                Admin UserName* :
+            </td>
+            <td>
+                <input type="text" th:field="*{userName}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Password* :
+            </td>
+            <td>
+                <input type="password" th:field="*{password}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Password again* :
+            </td>
+            <td>
+                <input type="password" id="passwordAgain"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                First Name :
+            </td>
+            <td>
+                <input type="text" th:field="*{firstName}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Last Name :
+            </td>
+            <td>
+                <input type="text" th:field="*{lastName}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                EMail* :
+            </td>
+            <td>
+                <input type="text" th:field="*{email}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Date Of Birth*:
+            </td>
+            <td>
+                <input type="date" th:field="*{dataOfBirth}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                ZipCode :
+            </td>
+            <td>
+                <input type="text" th:field="*{zipCode}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                City :
+            </td>
+            <td>
+                <input type="text" th:field="*{city}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Country :
+            </td>
+            <td>
+                <select name="country" th:field="*{country}">
+                    <option th:each="item : ${countires}" th:value="${item}"
+                            th:text="${item}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Submit</button>
+            </td>
+        </tr>
+    </table>
+</form>
+* - required
+
+<p id="errorMessage"><span th:text="${error}"></span></p>
+</body>
+</html>

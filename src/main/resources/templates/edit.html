@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Employee Storage Service Example</title>
+</head>
+<body>
+<h3>Employee Storage Service</h3>
+<form th:action="@{/edit(id = ${employeeEntity.id}, companyId = ${employeeEntity.company.getId()})}" th:object="${employeeEntity}" method="post">
+    <table>
+        <tr>
+            <td>
+                Name :
+            </td>
+            <td>
+                <input type="text" th:field="*{name}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Surname :
+            </td>
+            <td>
+                <input type="text" th:field="*{surname}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                email :
+            </td>
+            <td>
+                <input type="text" th:field="*{email}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                address :
+            </td>
+            <td>
+                <input type="text" th:field="*{address}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                salary :
+            </td>
+            <td>
+                <input type="text" th:field="*{salary}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                company :
+            </td>
+            <td th:text="${employeeEntity.getCompany().getName()}">Company</td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Submit</button> <a th:href="@{/employees}">Back</a>
+            </td>
+        </tr>
+    </table>
+</form>
+* - required
+
+<p id="errorMessage"><span th:text="${error}"></span></p>
+</body>
+</html>
