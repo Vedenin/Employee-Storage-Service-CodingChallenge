@@ -5,61 +5,7 @@
 </head>
 <body>
 <h3>Employee Storage Service</h3>
-<form action="#" th:action="@{/employees.html}" th:object="${mainFormModel}" method="post">
-    <table>
-        <tr>
-            <td>Company:</td>
-            <td>
-                <select name="company" th:field="*{company}">
-                    <option th:each="item : ${companies}" th:value="${item.getId()}"
-                            th:text="${item.getName()}" th:if="${item.getId() != company}">
-                    </option>
-                    <option th:each="item : ${companies}" th:value="${item.getId()}"
-                            th:text="${item.getName()}" th:if="${item.getId() == company}"
-                            selected="selected">
-                    </option>
-                </select>
-            </td>
-            <td th:if="${#fields.hasErrors('company')}" th:errors="*{company}">To Error</td>
-        </tr>
-        <tr>
-            <td>
-                <button type="submit">Change company</button>
-            </td>
-        </tr>
-    </table>
-    <h2>
-        Average salary: <p th:text="${result}"/>
-    </h2>
-</form>
-<span th:text="${error}"></span>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Log out"/>
-</form>
-<h3>Employee List</h3>
-<table border="1">
-    <tr>
-        <td>Name</td>
-        <td>Surname</td>
-        <td>Email</td>
-        <td>Salary</td>
-        <td>Company</td>
-        <td></td>
-    </tr>
-    <th:block th:each="item : ${employees}">
-        <tr>
-            <td th:text="${item.getName()}">Name</td>
-            <td th:text="${item.getSurname()}">Surname</td>
-            <td th:text="${item.getEmail()}">email</td>
-            <td th:text="${item.getSalary()}">salary</td>
-            <td th:text="${item.getCompany().getName()}">Company</td>
-            <td>
-                <a th:href="@{/edit(id=${item.getId()}, companyId = ${item.getCompany().getId()})}">edit</a><br />
-                <a th:href="@{/delete(id=${item.getId()})}">delete</a>
-            </td>
-        </tr>
-    </th:block>
-</table>
-<a th:href="@{/edit(id=-1, companyId = ${mainFormModel.company})}">add new Employee</a>
+Employee was deleted! <a th:href="@{/employees}">Back</a>
+
 </body>
 </html>

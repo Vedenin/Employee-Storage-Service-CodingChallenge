@@ -22,7 +22,7 @@ import static com.github.vedenin.codingchallenge.mvc.Consts.*;
 * Controller that provide main page of Converter application
 */
 @Controller
-public class MainWebController extends EmployeeRestController {
+public class MainController extends EmployeeRestController {
 
     private static final String RESULT = "result";
 
@@ -70,35 +70,39 @@ public class MainWebController extends EmployeeRestController {
                                  @RequestParam(value = "companyId", defaultValue = "-1") Long companyId,
                                  EmployeeEntity entity,
                                  HttpServletResponse httpServletResponse) {
-        if(entity != null &&
+        if (entity != null &&
                 entity.getName() != null &&
                 !entity.getName().isEmpty() &&
                 entity.getSurname() != null &&
                 !entity.getSurname().isEmpty()) {
             updateEmployee(id, companyId, entity);
             httpServletResponse.setHeader("Location", "/employees");
-        } else if(id >= 0) {
-             EmployeeEntity fromDB = getEmployee(id, companyId);
-             entity.setName(fromDB.getName());
-             entity.setSurname(fromDB.getSurname());
-             entity.setEmail(fromDB.getEmail());
-             entity.setAddress(fromDB.getAddress());
-             entity.setSalary(fromDB.getSalary());
-             entity.setId(id);
-             entity.setCompany(fromDB.getCompany());
-         } else {
-            entity.setCompany(getCompany(companyId));
-         }
-         return EDIT_URL;
+        } else if (id >= 0) {
+            EmployeeEntity fromDB = getEmployee(id, companyId);
+            if (entity != null) {
+                entity.setName(fromDB.getName());
+                entity.setSurname(fromDB.getSurname());
+                entity.setEmail(fromDB.getEmail());
+                entity.setAddress(fromDB.getAddress());
+                entity.setSalary(fromDB.getSalary());
+                entity.setId(id);
+                entity.setCompany(fromDB.getCompany());
+            }
+        } else {
+            if (entity != null) {
+                entity.setCompany(getCompany(companyId));
+            }
+        }
+        return EDIT_URL;
     }
 
     @RequestMapping(DELETE_URL)
     public String handleDeleteForm(@RequestParam(value = "id", defaultValue = "-1") Long id,
-                                 @RequestParam(value = "companyId", defaultValue = "-1") Long companyId,
+                                   @RequestParam(value = "companyId", defaultValue = "-1") Long companyId,
                                    MainFormModel mainFormModel,
                                    Model model) {
         deleteEmployee(id, companyId);
-        return getListFrom(companyId, model);
+        return DELETE_URL;
     }
 
     @RequestMapping(REGISTER_URL)

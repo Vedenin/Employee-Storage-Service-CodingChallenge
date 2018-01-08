@@ -85,5 +85,5 @@ A publicly available git repository with a README.md that explains how to compil
 See more info in [Spring Boot documentation](http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-running-your-application.html)
 
 #### How see result in web
-Use following link: [https://currency-convector.herokuapp.com/](https://currency-convector.herokuapp.com/)
+Use following link: [https://employee-storage-service.herokuapp.com/](https://employee-storage-service.herokuapp.com/)
 

@@ -3,14 +3,44 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title>Employee Storage Service Example</title>
+    <script type="text/javascript">
+        //<![CDATA[
+        function validateEmail(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+        function validateForm() {
+            var email = document.getElementById("email").value;
+            var name = document.getElementById("name").value;
+            var errorMessageElement = document.getElementById("errorMessage");
+            var surname = document.getElementById("surname").value;
+            var address = document.getElementById("address").value;
+            var salary = document.getElementById("salary").value;
+            var error = "";
+            error += !name ? "The 'name' field should be filled.<br>" : "";
+            error += !surname? "The 'surname' field should be filled.<br>": "";
+            error += !address ? "The 'address' field should be filled.<br>": "";
+            error += !validateEmail(email) ? "Email isn't correct.<br>": "";
+            error += !salary ? "The 'salary' field should be filled.<br>": "";
+
+            if(error) {
+                errorMessageElement.innerHTML = error + " Please change and try again";
+                return false;
+            } else {
+                return true;
+            }
+        }
+        //]]>
+    </script>
 </head>
 <body>
 <h3>Employee Storage Service</h3>
-<form th:action="@{/edit(id = ${employeeEntity.id}, companyId = ${employeeEntity.company.getId()})}" th:object="${employeeEntity}" method="post">
+<form th:action="@{/edit(id = ${employeeEntity.id}, companyId = ${employeeEntity.company.getId()})}"
+      th:object="${employeeEntity}" method="post" onsubmit="return validateForm()">
     <table>
         <tr>
             <td>
-                Name :
+                Name *:
             </td>
             <td>
                 <input type="text" th:field="*{name}"/>
@@ -18,7 +48,7 @@
         </tr>
         <tr>
             <td>
-                Surname :
+                Surname * :
             </td>
             <td>
                 <input type="text" th:field="*{surname}"/>
@@ -26,7 +56,7 @@
         </tr>
         <tr>
             <td>
-                email :
+                email * :
             </td>
             <td>
                 <input type="text" th:field="*{email}"/>
@@ -34,7 +64,7 @@
         </tr>
         <tr>
             <td>
-                address :
+                address * :
             </td>
             <td>
                 <input type="text" th:field="*{address}"/>
@@ -42,10 +72,10 @@
         </tr>
         <tr>
             <td>
-                salary :
+                salary * :
             </td>
             <td>
-                <input type="text" th:field="*{salary}"/>
+                <input type="number" th:field="*{salary}"/>
             </td>
         </tr>
         <tr>
