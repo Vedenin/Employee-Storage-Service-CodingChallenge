@@ -87,3 +87,11 @@ See more info in [Spring Boot documentation](http://docs.spring.io/spring-boot/d
 #### How see result in web
 Use following link: [https://employee-storage-service.herokuapp.com/](https://employee-storage-service.herokuapp.com/)
 
+### Rest Service 
+https://employee-storage-service.herokuapp.com/rest/companies/1/employees (get) - show all employees for companies with id = 1
+https://employee-storage-service.herokuapp.com/rest/companies/1 (get) - show information about company with id = 1,
+https://employee-storage-service.herokuapp.com/rest/companies (get) - show information about all companies,
+https://employee-storage-service.herokuapp.com/rest/companies/2/employees/1 (get) - show employee with id = 1 for company with id = 2,
+https://employee-storage-service.herokuapp.com/rest/companies/2/employees (post) - add new employee for company with id = 2, 
+https://employee-storage-service.herokuapp.com/rest/companies/2/employees (put) - update employee for company with id = 2, 
+https://employee-storage-service.herokuapp.com/rest/companies/2/employees (delete) - delete employee for company with id = 2, 
